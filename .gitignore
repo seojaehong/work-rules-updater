@@ -27,8 +27,8 @@ Thumbs.db
 data/company_rules/
 data/law_cache/
 
-# Output (generated files)
-output/
+# Output (generated files, not source code)
+/output/
 
 # Node.js (if docx generation uses JS)
 node_modules/

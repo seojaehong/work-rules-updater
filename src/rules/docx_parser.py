@@ -1,17 +1,22 @@
 """
-취업규칙 .docx 파서
+취업규칙 파서
 
-Word 문서로 된 취업규칙을 조문 단위로 파싱합니다.
+Word(.docx) 및 한글(.hwpx) 문서로 된 취업규칙을 조문 단위로 파싱합니다.
+.hwpx는 ZIP+XML(OWPML) 형식으로, 직접 파싱합니다.
 """
 import re
+import zipfile
 from pathlib import Path
 from typing import Optional
 
 from docx import Document
+from lxml import etree
 
 
 class WorkRulesParser:
-    """취업규칙 .docx 파서"""
+    """취업규칙 .docx / .hwpx 파서"""
+
+    SUPPORTED_FORMATS = {".docx", ".hwpx"}
 
     # 조문 번호 패턴
     ARTICLE_PATTERNS = [
@@ -28,10 +33,10 @@ class WorkRulesParser:
     SUBPARAGRAPH_PATTERN = re.compile(r'^\d+\.\s*')
 
     def parse(self, file_path: str) -> list[dict]:
-        """취업규칙 .docx 파일을 조문 단위로 파싱
+        """취업규칙 파일을 조문 단위로 파싱
 
         Args:
-            file_path: .docx 파일 경로
+            file_path: .docx 또는 .hwpx 파일 경로
 
         Returns:
             조문 리스트 [{number, title, content, paragraphs, law_references}]
@@ -40,8 +45,14 @@ class WorkRulesParser:
         if not path.exists():
             raise FileNotFoundError(f"파일을 찾을 수 없습니다: {file_path}")
 
-        if path.suffix.lower() != ".docx":
-            raise ValueError(f"지원하지 않는 파일 형식: {path.suffix} (.docx만 지원)")
+        suffix = path.suffix.lower()
+        if suffix not in self.SUPPORTED_FORMATS:
+            raise ValueError(
+                f"지원하지 않는 파일 형식: {suffix} ({', '.join(self.SUPPORTED_FORMATS)} 지원)"
+            )
+
+        if suffix == ".hwpx":
+            return self._parse_hwpx(path)
 
         doc = Document(file_path)
         articles = []
@@ -84,6 +95,83 @@ class WorkRulesParser:
                     current_article["content"] += "\n" + text
 
         # 마지막 조문 저장
+        if current_article:
+            current_article["law_references"] = self._extract_law_references(
+                current_article["content"]
+            )
+            articles.append(current_article)
+
+        return articles
+
+    def _parse_hwpx(self, path: Path) -> list[dict]:
+        """.hwpx 파일 파싱 (ZIP+XML/OWPML 형식)
+
+        .hwpx 구조:
+        - Contents/section0.xml ~ sectionN.xml: 본문 내용
+        - hp: 네임스페이스 (http://www.hancom.co.kr/hwpml/2011/paragraph)
+        """
+        HP_NS = "http://www.hancom.co.kr/hwpml/2011/paragraph"
+        HT_NS = "http://www.hancom.co.kr/hwpml/2011/text"
+
+        texts: list[str] = []
+
+        with zipfile.ZipFile(path, "r") as zf:
+            # section 파일들 찾기 (section0.xml, section1.xml, ...)
+            section_files = sorted(
+                name for name in zf.namelist()
+                if name.startswith("Contents/section") and name.endswith(".xml")
+            )
+
+            if not section_files:
+                raise ValueError(f".hwpx 파일에서 섹션을 찾을 수 없습니다: {path}")
+
+            for section_file in section_files:
+                xml_bytes = zf.read(section_file)
+                root = etree.fromstring(xml_bytes)
+
+                # 모든 텍스트 노드에서 텍스트 추출
+                # <hp:p> 요소가 문단, 내부의 <hp:t> 또는 <ht:t>가 텍스트
+                for p_elem in root.iter(f"{{{HP_NS}}}p"):
+                    para_texts = []
+                    for t_elem in p_elem.iter():
+                        if t_elem.tag in (f"{{{HP_NS}}}t", f"{{{HT_NS}}}t") and t_elem.text:
+                            para_texts.append(t_elem.text)
+                    line = "".join(para_texts).strip()
+                    if line:
+                        texts.append(line)
+
+        # 추출된 텍스트를 조문으로 구조화 (docx와 동일 로직)
+        articles = []
+        current_article = None
+
+        for text in texts:
+            article_info = self._match_article(text)
+
+            if article_info:
+                if current_article:
+                    current_article["law_references"] = self._extract_law_references(
+                        current_article["content"]
+                    )
+                    articles.append(current_article)
+
+                current_article = {
+                    "number": article_info["number"],
+                    "title": article_info.get("title", ""),
+                    "content": text,
+                    "full_text": text,
+                    "paragraphs": [],
+                    "law_references": [],
+                }
+            elif current_article:
+                current_article["full_text"] += "\n" + text
+
+                if self.PARAGRAPH_PATTERN.match(text):
+                    current_article["paragraphs"].append(text)
+                elif self.SUBPARAGRAPH_PATTERN.match(text):
+                    current_article["paragraphs"].append(text)
+                else:
+                    current_article["content"] += "\n" + text
+
         if current_article:
             current_article["law_references"] = self._extract_law_references(
                 current_article["content"]

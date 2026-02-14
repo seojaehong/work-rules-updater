@@ -3,13 +3,73 @@
 법령 개정사항을 자동 추적하여 회사 취업규칙 수정안 + 신구조문 대조표를 생성하는 노무사 실무 자동화 도구
 
 ---
+## 행동 규칙 (Behavioral Guidelines)
+
+LLM 코딩 실수를 줄이기 위한 행동 지침.
+Tradeoff: 속도보다 신중함. 사소한 작업은 판단에 맡긴다.
+
+### 1. Think Before Coding
+Don't assume. Don't hide confusion. Surface tradeoffs.
+
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+- **Never silently switch approaches** — if your plan changes, explain the pivot.
+
+### 2. Simplicity First
+Minimum code that solves the problem. Nothing speculative.
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+### 3. Surgical Changes
+Touch only what you must. Clean up only your own mess.
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated issues, don't fix them — report with `[Observation]` at end of response.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+### 4. Goal-Driven Execution
+Define success criteria. Loop until verified.
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+**If your fix needs a fix, STOP.** Rollback and try an alternative approach, or ask for guidance.
+
+---
+
+## 자동 실행 규칙
+
+- 파일 읽기/쓰기/수정, Python 실행 — 확인 없이 자동 실행
+- Git 작업 (add, commit, push) — 요청 시 자동 실행
+- 에러 발생 시 → 자동 수정 시도
+- 작업 완료 시: 실행 → 자체 검토 → 개선 → 요약 및 다음 단계 제안
+
 
 ## 현재 상태 (2026-02-14)
 
 | 항목 | 값 |
 |------|-----|
-| 레벨 | 초기 셋업 |
-| 다음 작업 | Phase 1: 국가법령정보 API 연동 |
+| 레벨 | Phase 1 진행 중 |
+| 다음 작업 | Phase 1 완료 후 Phase 2: 취업규칙 파싱 |
+| API 상태 | 공공데이터포털 검색 OK / law.go.kr 조문상세 OC 승인 대기 |
 
 ---
 
@@ -107,9 +167,10 @@ Base URL: http://www.law.go.kr/DRF/lawSearch.do
 - 법령 본문: ?OC={id}&target=law&MST={법령일련번호}&type=XML
 - 연혁 조회: ?OC={id}&target=law&MST={법령일련번호}&type=XML&efYd={시행일}
 
-공공데이터포털 (대안):
-- URL: http://apis.data.go.kr/1170000/law
-- 인증: ServiceKey (발급 필요)
+공공데이터포털 (주 API - 검색용):
+- URL: https://apis.data.go.kr/1170000/law/lawSearchList.do
+- 인증: ServiceKey (인코딩키를 URL에 직접 삽입, 이중 인코딩 방지)
+- 제공: 법령 목록 검색만 (조문 상세 없음)
 ```
 
 ---
@@ -145,15 +206,16 @@ DATA_GO_KR_KEY=your_service_key       # 공공데이터포털 서비스 키 (대
 ## 개발 로드맵
 
 ### Phase 1: 국가법령정보 API 연동 (MVP)
-- [ ] API 클라이언트 구현 (법령 검색, 본문 조회)
-- [ ] XML 파싱 → 조문 구조화 (조/항/호 단위)
+- [x] API 클라이언트 구현 (공공데이터포털 검색)
+- [ ] XML 파싱 → 조문 구조화 (law.go.kr OC 승인 후)
 - [ ] 법령 개정 이력 조회 및 비교
-- [ ] 로컬 캐시 (불필요한 API 호출 방지)
+- [x] 로컬 캐시 (불필요한 API 호출 방지)
 
 ### Phase 2: 취업규칙 파싱
-- [ ] .docx 파싱 (python-docx)
-- [ ] 조문 번호 자동 인식 (정규식)
-- [ ] 법령 참조 조항 추출
+- [x] .docx 파싱 (python-docx)
+- [x] .hwpx 파싱 (ZIP+XML 직접 파싱)
+- [x] 조문 번호 자동 인식 (정규식)
+- [x] 법령 참조 조항 추출
 - [ ] 표준취업규칙 파싱
 
 ### Phase 3: 매칭 & 수정안 생성
@@ -162,7 +224,7 @@ DATA_GO_KR_KEY=your_service_key       # 공공데이터포털 서비스 키 (대
 - [ ] 변경 사유 자동 기재
 
 ### Phase 4: 산출물 생성
-- [ ] 신구조문 대조표 (.docx)
+- [ ] 신구조문 대조표 (.xlsx, openpyxl)
 - [ ] 수정된 취업규칙 (.docx)
 - [ ] 변경사항 요약 보고서
 
@@ -183,7 +245,8 @@ DATA_GO_KR_KEY=your_service_key       # 공공데이터포털 서비스 키 (대
 
 ### 파일 처리
 - 원본 파일 절대 수정 금지 → output/에만 생성
-- .docx 생성 시 A4 기준 (한국 표준)
+- 입력: .docx, .hwpx 지원
+- 출력: 신구조문 대조표 .xlsx / 수정 취업규칙 .docx
 - 인코딩: UTF-8
 
 ### 보안
