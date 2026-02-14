@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment (API keys)
+.env
+.env.local
+.env.*.local
+
+# Company data (confidential)
+data/company_rules/
+data/law_cache/
+
+# Output (generated files)
+output/
+
+# Node.js (if docx generation uses JS)
+node_modules/
+package-lock.json
+
+# Misc
+*.log
