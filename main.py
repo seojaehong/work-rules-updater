@@ -1,6 +1,9 @@
 """
 취업규칙 자동 변경 시스템 - CLI
 """
+
+import os
+
 import click
 from rich.console import Console
 
@@ -29,7 +32,8 @@ def check_updates(laws, since, output):
         python main.py check-updates --laws 근로기준법,최저임금법
         python main.py check-updates --since 2025-01-01 -o updates.json
     """
-    from src.law_api.client import LawAPIClient
+    from src.ingestion.law_client import LawAPIClient
+    from src.outputs.json_output import JsonOutputWriter
 
     console.print("\n[bold blue]📋 법령 개정사항 확인[/bold blue]\n")
 
@@ -49,10 +53,8 @@ def check_updates(laws, since, output):
         console.print()
 
     if output:
-        import json
-        with open(output, "w", encoding="utf-8") as f:
-            json.dump(results, f, ensure_ascii=False, indent=2)
-        console.print(f"[green]✅ 저장 완료: {output}[/green]")
+        saved_path = JsonOutputWriter().write(results, output)
+        console.print(f"[green]✅ 저장 완료: {saved_path}[/green]")
 
 
 @cli.command("parse-rules")
@@ -65,7 +67,8 @@ def parse_rules(input_file, output):
         python main.py parse-rules data/company_rules/취업규칙.docx
         python main.py parse-rules data/company_rules/취업규칙.docx -o parsed.json
     """
-    from src.rules.docx_parser import WorkRulesParser
+    from src.ingestion.rules_parser import WorkRulesParser
+    from src.outputs.json_output import JsonOutputWriter
 
     console.print(f"\n[bold blue]📄 취업규칙 파싱: {input_file}[/bold blue]\n")
 
@@ -81,10 +84,8 @@ def parse_rules(input_file, output):
         console.print(f"  ... 외 {len(articles) - 10}개 조문")
 
     if output:
-        import json
-        with open(output, "w", encoding="utf-8") as f:
-            json.dump(articles, f, ensure_ascii=False, indent=2)
-        console.print(f"\n[green]✅ 저장 완료: {output}[/green]")
+        saved_path = JsonOutputWriter().write(articles, output)
+        console.print(f"\n[green]✅ 저장 완료: {saved_path}[/green]")
 
 
 @cli.command("match")
@@ -97,8 +98,8 @@ def match_changes(rules_file, since):
         python main.py match data/company_rules/취업규칙.docx
         python main.py match data/company_rules/취업규칙.docx --since 2025-01-01
     """
-    from src.rules.docx_parser import WorkRulesParser
-    from src.rules.matcher import RulesMatcher
+    from src.ingestion.rules_parser import WorkRulesParser
+    from src.matching.matcher import RulesMatcher
 
     console.print(f"\n[bold blue]🔍 매칭 분석: {rules_file}[/bold blue]\n")
 
@@ -129,15 +130,50 @@ def match_changes(rules_file, since):
 @click.argument("rules_file")
 @click.option("--output", "-o", default="output/", help="출력 디렉토리")
 @click.option("--since", "-s", default=None, help="법령 변경 기준일")
-def generate_table(rules_file, output, since):
+@click.option("--company-name", "-c", default="", help="회사명 (문서 헤더용)")
+@click.option("--hwpx-template", default=None, help="HWPX 템플릿 경로 (선택)")
+def generate_table(rules_file, output, since, company_name, hwpx_template):
     """신구조문 대조표 생성
 
     예시:
         python main.py generate-table data/company_rules/취업규칙.docx
         python main.py generate-table data/company_rules/취업규칙.docx -o output/ --since 2025-01-01
     """
+    from src.ingestion.rules_parser import WorkRulesParser
+    from src.matching.matcher import RulesMatcher
+    from src.outputs.pipeline import OutputPipeline
+
     console.print(f"\n[bold blue]📊 신구조문 대조표 생성[/bold blue]\n")
-    console.print("[yellow]🚧 Phase 4에서 구현 예정[/yellow]")
+
+    console.print("[dim]1. 취업규칙 파싱 중...[/dim]")
+    parser = WorkRulesParser()
+    articles = parser.parse(rules_file)
+    console.print(f"   → {len(articles)}개 조문\n")
+
+    console.print("[dim]2. 매칭 분석 중...[/dim]")
+    matcher = RulesMatcher()
+    matches = matcher.find_matches(articles, since=since)
+    console.print(f"   → {len(matches)}개 매칭\n")
+
+    template_path = hwpx_template or os.getenv("HWPX_TEMPLATE_PATH")
+    pipeline = OutputPipeline()
+    result = pipeline.generate_outputs(
+        matches=matches,
+        output_dir=output,
+        company_name=company_name,
+        hwpx_template=template_path,
+    )
+
+    files = result.get("files", {})
+    for key, path in files.items():
+        if key == "hwpx_error":
+            continue
+        console.print(f"[green]✅ {key.upper()} 생성: {path}[/green]")
+
+    if not template_path:
+        console.print("[yellow]ℹ HWPX 템플릿 미지정으로 JSON/XLSX만 생성했습니다.[/yellow]")
+    elif files.get("hwpx_error"):
+        console.print(f"[yellow]⚠ HWPX 생성 실패: {files['hwpx_error']}[/yellow]")
 
 
 if __name__ == "__main__":
