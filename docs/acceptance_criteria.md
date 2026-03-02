@@ -17,7 +17,7 @@
 | 테스트 | 파일 | 기준 |
 |--------|------|------|
 | smoke_test | `evals/smoke_test.py` | PASS |
-| rubric_smoke | `scripts/run_rubric_smoke.py` | score >= 90.0 |
+| rubric_smoke | `scripts/run_rubric_smoke.py` | score >= 99.0 |
 | resilience | `evals/resilience_test.py` | 3/3 OK |
 | diagnostics | `evals/diagnostics_test.py` | 3/3 OK |
 
@@ -41,7 +41,8 @@ MVP → 서비스 전환 시 추가 요건:
 
 ```
 python -m pytest evals/baseline_gate_test.py -v
-python -m pytest evals/smoke_test.py -v
+python evals/smoke_test.py
 python evals/resilience_test.py
 python evals/diagnostics_test.py
+python scripts/run_rubric_smoke.py
 ```

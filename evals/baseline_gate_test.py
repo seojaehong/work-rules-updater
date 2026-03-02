@@ -48,8 +48,15 @@ def _load_amendments() -> list[dict]:
 class BaselineGateTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        if not BASELINE_FILE.exists() or not CROSSWALK_FILE.exists():
-            raise unittest.SkipTest("baseline or crosswalk file missing")
+        missing = []
+        if not BASELINE_FILE.exists():
+            missing.append(str(BASELINE_FILE))
+        if not CROSSWALK_FILE.exists():
+            missing.append(str(CROSSWALK_FILE))
+        if missing:
+            raise AssertionError(
+                f"필수 기준선 파일 누락 (CI에서 Skip 방지): {', '.join(missing)}"
+            )
 
         from src.matching.matcher import RulesMatcher
 
@@ -99,6 +106,45 @@ class BaselineGateTest(unittest.TestCase):
             len(self.rule_articles),
             f"매칭 수({len(self.matches)})가 조문 수({len(self.rule_articles)})보다 적음",
         )
+
+
+class OverridePrecedenceTest(unittest.TestCase):
+    """override가 global standard_map을 덮어쓰는지 검증."""
+
+    def test_override_replaces_global_entry(self):
+        """override articles가 global 동일 key를 대체해야 한다."""
+        import tempfile
+
+        from src.matching.matcher import RulesMatcher
+
+        override = {
+            "articles": {
+                "93": {
+                    "title": "테스트 override 조항",
+                    "aliases": ["테스트 override"],
+                    "law": "근로기준법",
+                    "articles": ["제999조"],
+                    "source": "테스트",
+                }
+            }
+        }
+        with tempfile.NamedTemporaryFile(
+            mode="w", suffix=".json", delete=False, encoding="utf-8"
+        ) as f:
+            json.dump(override, f, ensure_ascii=False)
+            tmp_path = f.name
+
+        try:
+            matcher = RulesMatcher(override_path=tmp_path)
+            entry = matcher.standard_article_map.get("93")
+            self.assertIsNotNone(entry, "key 93이 standard_article_map에 없음")
+            self.assertEqual(
+                entry["title"],
+                "테스트 override 조항",
+                "override가 global을 대체하지 못함",
+            )
+        finally:
+            Path(tmp_path).unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
