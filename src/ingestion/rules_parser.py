@@ -23,9 +23,18 @@ class WorkRulesParser:
     SUPPORTED_FORMATS = {".docx", ".hwpx"}
 
     ARTICLE_PATTERNS = [
-        re.compile(r"^제\s*(\d+)\s*조\s*[\(（]([^)）]+)[\)）]"),
-        re.compile(r"^제\s*(\d+)\s*조\s+(.+)"),
-        re.compile(r"^제\s*(\d+)\s*조"),
+        re.compile(
+            r"^제\s*(?P<article>\d+)\s*조(?:\s*의\s*(?P<sub_article>\d+))?\s*[\(（](?P<title>[^)）]+)[\)）]"
+        ),
+        re.compile(
+            r"^제\s*(?P<article>\d+)\s*조(?:\s*의\s*(?P<sub_article>\d+))?\s+(?P<title>.+)"
+        ),
+        re.compile(r"^제\s*(?P<article>\d+)\s*조(?:\s*의\s*(?P<sub_article>\d+))?"),
+    ]
+
+    SKIP_TITLE_PATTERNS = [
+        re.compile(r"^신설필요$"),
+        re.compile(r"^현\s*제\s*\d+\s*조"),
     ]
 
     PARAGRAPH_PATTERN = re.compile(r"^[①②③④⑤⑥⑦⑧⑨⑩]\s*")
@@ -85,6 +94,7 @@ class WorkRulesParser:
     def _build_articles(self, lines: list[str]) -> list[dict]:
         articles = []
         current_article = None
+        article_seq = 0
 
         for text in lines:
             article_info = self._match_article(text)
@@ -95,7 +105,13 @@ class WorkRulesParser:
                     )
                     articles.append(current_article)
 
+                if self._is_skippable_article(article_info):
+                    current_article = None
+                    continue
+
+                article_seq += 1
                 current_article = {
+                    "uid": str(article_seq),
                     "number": article_info["number"],
                     "title": article_info.get("title", ""),
                     "content": text,
@@ -118,15 +134,67 @@ class WorkRulesParser:
             current_article["law_references"] = extract_law_references(current_article["content"])
             articles.append(current_article)
 
-        return articles
+        return self._deduplicate_articles(articles)
+
+    @staticmethod
+    def _deduplicate_articles(articles: list[dict]) -> list[dict]:
+        """같은 조문번호/제목이 중복될 때 인용정보가 풍부한 항목을 우선 유지."""
+        if not articles:
+            return []
+
+        best_by_key: dict[tuple[str, str], dict] = {}
+        order: list[tuple[str, str]] = []
+
+        for article in articles:
+            key = (
+                str(article.get("number", "")).strip(),
+                str(article.get("title", "")).strip(),
+            )
+            score = (
+                len(article.get("law_references", []) or []),
+                len(str(article.get("content", ""))),
+                len(str(article.get("full_text", ""))),
+            )
+
+            if key not in best_by_key:
+                best_by_key[key] = article
+                order.append(key)
+                continue
+
+            current = best_by_key[key]
+            current_score = (
+                len(current.get("law_references", []) or []),
+                len(str(current.get("content", ""))),
+                len(str(current.get("full_text", ""))),
+            )
+            if score > current_score:
+                best_by_key[key] = article
+
+        deduped: list[dict] = []
+        for key in order:
+            deduped.append(best_by_key[key])
+        return deduped
 
     def _match_article(self, text: str) -> Optional[dict]:
         for pattern in self.ARTICLE_PATTERNS:
             match = pattern.match(text)
-            if match:
-                groups = match.groups()
-                result = {"number": groups[0]}
-                if len(groups) > 1:
-                    result["title"] = groups[1].strip()
-                return result
+            if not match:
+                continue
+
+            article_no = (match.groupdict().get("article") or "").strip()
+            sub_article = (match.groupdict().get("sub_article") or "").strip()
+            title = (match.groupdict().get("title") or "").strip()
+
+            number = f"{article_no}의{sub_article}" if sub_article else article_no
+            result = {"number": number}
+            if title:
+                result["title"] = title
+            return result
         return None
+
+    @classmethod
+    def _is_skippable_article(cls, article_info: dict) -> bool:
+        title = str(article_info.get("title", "")).strip()
+        if not title:
+            return False
+        return any(pattern.match(title) for pattern in cls.SKIP_TITLE_PATTERNS)
