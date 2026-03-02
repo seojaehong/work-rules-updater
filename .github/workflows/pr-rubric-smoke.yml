@@ -23,8 +23,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run rubric smoke script
-        run: python scripts/run_rubric_smoke.py
+      - name: Run smoke scripts
+        run: |
+          python evals/smoke_test.py
+          python evals/resilience_test.py
+          python scripts/run_rubric_smoke.py
 
       - name: Verify smoke artifact
         run: |

@@ -76,8 +76,12 @@ def main() -> int:
     if not matches:
         return _fail("matcher returned no matches")
 
-    _ = RulesUpdater()
-    print("[SMOKE][PASS] imports, parser, and matcher checks passed")
+    updater = RulesUpdater()
+    drafts = updater.generate_draft(matches=matches, original_articles=rule_articles)
+    if not drafts:
+        return _fail("updater returned no drafts")
+
+    print("[SMOKE][PASS] imports, parser, matcher, and updater checks passed")
     return 0
 
 

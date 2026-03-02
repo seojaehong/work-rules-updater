@@ -17,7 +17,9 @@
         "제15조",
         "제17조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "근무시간": {
       "aliases": [
@@ -41,7 +43,9 @@
         "제52조",
         "제53조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "연장야간휴일근로": {
       "aliases": [
@@ -56,7 +60,9 @@
         "제53조",
         "제56조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "휴게휴일": {
       "aliases": [
@@ -70,7 +76,9 @@
         "제54조",
         "제55조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "연차유급휴가": {
       "aliases": [
@@ -87,7 +95,9 @@
         "제61조",
         "제62조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "임금": {
       "aliases": [
@@ -101,7 +111,9 @@
         "제43조",
         "제43조의2"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "해고": {
       "aliases": [
@@ -118,7 +130,9 @@
         "제26조",
         "제27조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "임산부보호": {
       "aliases": [
@@ -134,7 +148,9 @@
         "제74조의2",
         "제75조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "직장내괴롭힘": {
       "aliases": [
@@ -149,12 +165,15 @@
         "제76조의2",
         "제76조의3"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "성희롱예방": {
       "aliases": [
         "성희롱예방",
         "성희롱 예방교육",
+        "성희롱의 예방",
         "고객 등에 의한 성희롱",
         "직장 내 성희롱"
       ],
@@ -165,7 +184,9 @@
         "제13조의2",
         "제14조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "육아휴직": {
       "aliases": [
@@ -180,7 +201,9 @@
         "제19조의3",
         "제19조의4"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "육아기근로시간단축": {
       "aliases": [
@@ -194,14 +217,18 @@
         "제19조의3",
         "제19조의4"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "안전보건": {
       "aliases": [
         "안전보건",
         "산업안전",
         "보건관리",
-        "건강진단"
+        "건강진단",
+        "물질안전보건자료의 작성·비치",
+        "물질안전보건자료의 작성․비치"
       ],
       "law": "산업안전보건법",
       "articles": [
@@ -210,7 +237,9 @@
         "제129조",
         "제130조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "퇴직급여": {
       "aliases": [
@@ -225,7 +254,9 @@
         "제8조",
         "제9조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "최저임금": {
       "aliases": [
@@ -236,7 +267,9 @@
       "articles": [
         "제6조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "취업규칙작성신고": {
       "aliases": [
@@ -252,7 +285,9 @@
         "제93조",
         "제93조제1호"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "간주근로시간제": {
       "aliases": [
@@ -263,7 +298,9 @@
       "articles": [
         "제58조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "생리휴가": {
       "aliases": [
@@ -273,7 +310,9 @@
       "articles": [
         "제73조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "육아시간": {
       "aliases": [
@@ -283,7 +322,35 @@
       "articles": [
         "제75조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
+    },
+    "병가휴가": {
+      "aliases": [
+        "병가",
+        "질병휴가"
+      ],
+      "law": "근로기준법",
+      "articles": [
+        "제93조제4호"
+      ],
+      "match_type": "canonical",
+      "confidence": "low",
+      "basis": "법적 직접 근거 약함 (취업규칙 기재사항 일반조항)"
+    },
+    "직무교육": {
+      "aliases": [
+        "직무교육",
+        "교육훈련"
+      ],
+      "law": "근로기준법",
+      "articles": [
+        "제93조제7호"
+      ],
+      "match_type": "canonical",
+      "confidence": "low",
+      "basis": "법적 직접 근거 약함 (취업규칙 기재사항 일반조항)"
     },
     "징계절차": {
       "aliases": [
@@ -300,7 +367,9 @@
         "제23조",
         "제27조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "high",
+      "basis": "법령 직접 근거 확인"
     },
     "산업안전조치": {
       "aliases": [
@@ -317,30 +386,35 @@
         "제129조",
         "제130조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "medium",
+      "basis": "간접 법령 연결"
     },
     "채용절차": {
       "aliases": [
         "채용기회",
         "전형 및 채용서류"
       ],
-      "law": "남녀고용평등과 일ㆍ가정 양립 지원에 관한 법률",
+      "law": "채용절차의공정화에관한법률",
       "articles": [
-        "제10조"
+        "제4조의3"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "medium",
+      "basis": "간접 법령 연결"
     },
     "정년퇴직": {
       "aliases": [
         "정년",
         "정년퇴직"
       ],
-      "law": "근로자퇴직급여보장법",
+      "law": "고령자고용법",
       "articles": [
-        "제8조",
-        "제9조"
+        "제19조"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "medium",
+      "basis": "간접 법령 연결"
     },
     "표창제도": {
       "aliases": [
@@ -351,7 +425,9 @@
         "제93조",
         "제93조제11호"
       ],
-      "match_type": "canonical"
+      "match_type": "canonical",
+      "confidence": "low",
+      "basis": "법적 직접 근거 약함 (취업규칙 기재사항 일반조항)"
     }
   }
 }

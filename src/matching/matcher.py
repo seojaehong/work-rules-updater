@@ -27,6 +27,7 @@ class RulesMatcher:
         mapping_path: str = "config/law_mapping.json",
         canonical_path: str = "config/canonical_map.json",
         standard_map_path: str = "config/standard_rules_2026_map.json",
+        override_path: Optional[str] = None,
     ):
         mapping_file = Path(mapping_path)
         if mapping_file.exists():
@@ -56,12 +57,21 @@ class RulesMatcher:
                 standard_config = json.load(file)
             self.match_rules.update(standard_config.get("match_rules", {}))
 
+        # Company-specific override: 동일 key는 override가 global을 덮어씀
+        standard_articles = dict(standard_config.get("articles", {}))
+        if override_path:
+            override_file = Path(override_path)
+            if override_file.exists():
+                with open(override_file, "r", encoding="utf-8") as file:
+                    override_config = json.load(file)
+                standard_articles.update(override_config.get("articles", {}))
+
         self.normalize_enabled = bool(self.match_rules.get("normalize", True))
         self.longest_match_priority = bool(self.match_rules.get("longest_match_priority", True))
         self.min_similarity = float(self.match_rules.get("min_similarity", 0.8))
 
         self.canonical_entries = self._build_canonical_entries(canonical_config.get("title_map", {}))
-        self.standard_article_map = self._build_standard_article_map(standard_config.get("articles", {}))
+        self.standard_article_map = self._build_standard_article_map(standard_articles)
         self.last_report: dict = {}
 
     def find_matches(

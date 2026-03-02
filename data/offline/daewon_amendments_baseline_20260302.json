@@ -12,6 +12,8 @@
       "law_mst": "",
       "changed_articles": [
         "제2조",
+        "제6조",
+        "제10조",
         "제14조",
         "제15조",
         "제17조",
@@ -145,6 +147,43 @@
       "law_mst": "",
       "changed_articles": [
         "제21조"
+      ],
+      "priority": "baseline",
+      "source": "daewon_api_target_baseline"
+    },
+    {
+      "law_name": "고용상 연령차별금지 및 고령자고용촉진에 관한 법률",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제4조의4",
+        "제19조"
+      ],
+      "priority": "baseline",
+      "source": "daewon_baseline_수동추가"
+    },
+    {
+      "law_name": "장애인고용촉진 및 직업재활법",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제5조의2"
+      ],
+      "priority": "baseline",
+      "source": "daewon_baseline_수동추가"
+    },
+    {
+      "law_name": "채용절차의 공정화에 관한 법률",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제4조의3"
       ],
       "priority": "baseline",
       "source": "daewon_api_target_baseline"

@@ -218,8 +218,13 @@ def parse_rules(input_file, output):
     default=None,
     help="오프라인 개정 데이터 JSON 경로 (list 또는 {'amendments': [...]})",
 )
+@click.option(
+    "--override",
+    default=None,
+    help="회사별 매핑 override JSON 경로 (config/overrides/xxx.json)",
+)
 @_command_guard
-def match_changes(rules_file, since, amendments_file):
+def match_changes(rules_file, since, amendments_file, override):
     """법령 변경사항 ↔ 취업규칙 매칭 분석
 
     예시:
@@ -237,7 +242,7 @@ def match_changes(rules_file, since, amendments_file):
     console.print(f"   -> {len(articles)}개 조문\n")
 
     console.print("[dim]2. 법령 변경사항과 매칭 중...[/dim]")
-    matcher = RulesMatcher()
+    matcher = RulesMatcher(override_path=override)
     if amendments_file:
         amendments = _load_amendments_file(amendments_file)
         api_report = _build_file_report(amendments_file, amendments)
@@ -286,8 +291,13 @@ def match_changes(rules_file, since, amendments_file):
     default="output/diagnostics/match_diagnosis.json",
     help="진단 리포트 저장 경로 (.json)",
 )
+@click.option(
+    "--override",
+    default=None,
+    help="회사별 매핑 override JSON 경로 (config/overrides/xxx.json)",
+)
 @_command_guard
-def diagnose_match(rules_file, since, amendments_file, output):
+def diagnose_match(rules_file, since, amendments_file, output, override):
     """법령조회/매칭 실패 원인 진단 리포트 생성
 
     예시:
@@ -326,7 +336,7 @@ def diagnose_match(rules_file, since, amendments_file, output):
         console.print()
 
     console.print("[dim]3. 매칭 + 진단 리포트 생성 중...[/dim]")
-    matcher = RulesMatcher()
+    matcher = RulesMatcher(override_path=override)
     matches = matcher.find_matches(
         rule_articles=articles,
         amendments=amendments,
@@ -371,8 +381,13 @@ def diagnose_match(rules_file, since, amendments_file, output):
     default=None,
     help="오프라인 개정 데이터 JSON 경로 (list 또는 {'amendments': [...]})",
 )
+@click.option(
+    "--override",
+    default=None,
+    help="회사별 매핑 override JSON 경로 (config/overrides/xxx.json)",
+)
 @_command_guard
-def generate_table(rules_file, output, since, company_name, hwpx_template, amendments_file):
+def generate_table(rules_file, output, since, company_name, hwpx_template, amendments_file, override):
     """신구조문 대조표 생성
 
     예시:
@@ -393,7 +408,7 @@ def generate_table(rules_file, output, since, company_name, hwpx_template, amend
     console.print(f"   -> {len(articles)}개 조문\n")
 
     console.print("[dim]2. 매칭 분석 중...[/dim]")
-    matcher = RulesMatcher()
+    matcher = RulesMatcher(override_path=override)
     if amendments_file:
         amendments = _load_amendments_file(amendments_file)
         api_report = _build_file_report(amendments_file, amendments)

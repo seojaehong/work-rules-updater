@@ -1,0 +1,7 @@
+{
+  "company": "대원산업",
+  "version": "2026.03",
+  "description": "대원산업 취업규칙 특화 매핑 (global 표준 위에 override)",
+  "note": "global standard_map과 동일 스키마. 여기 있는 항목이 global보다 우선 적용됨.",
+  "articles": {}
+}
