@@ -1,0 +1,192 @@
+{
+  "version": "2026.03.02",
+  "generated_at": "2026-03-02T17:50:17",
+  "source_file": "output\\대원산업_runupdate\\대원산업_API대상확정_20260227_093630.json",
+  "note": "대원산업 API대상확정 파일에서 후보 조문을 추출한 오프라인 개정 기준 세트",
+  "amendments": [
+    {
+      "law_name": "근로기준법",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제2조",
+        "제6조",
+        "제10조",
+        "제14조",
+        "제15조",
+        "제17조",
+        "제23조",
+        "제24조",
+        "제26조",
+        "제27조",
+        "제43조",
+        "제43조의2",
+        "제45조",
+        "제46조",
+        "제48조",
+        "제50조",
+        "제51조",
+        "제52조",
+        "제53조",
+        "제54조",
+        "제55조",
+        "제57조",
+        "제58조",
+        "제60조",
+        "제61조",
+        "제62조",
+        "제63조",
+        "제70조",
+        "제73조",
+        "제74조",
+        "제74조의2",
+        "제75조",
+        "제76조의2",
+        "제76조의3",
+        "제84조",
+        "제93조",
+        "제94조",
+        "제95조"
+      ],
+      "priority": "baseline",
+      "source": "daewon_api_target_baseline"
+    },
+    {
+      "law_name": "남녀고용평등과 일ㆍ가정 양립 지원에 관한 법률",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제10조",
+        "제12조",
+        "제13조",
+        "제13조의2",
+        "제14조",
+        "제18조의2",
+        "제18조의3",
+        "제19조",
+        "제19조의2",
+        "제19조의3",
+        "제19조의4",
+        "제22조의2",
+        "제22조의3"
+      ],
+      "priority": "baseline",
+      "source": "daewon_api_target_baseline"
+    },
+    {
+      "law_name": "산업안전보건법",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제5조",
+        "제25조",
+        "제26조",
+        "제27조",
+        "제29조",
+        "제41조",
+        "제80조",
+        "제114조",
+        "제125조",
+        "제129조",
+        "제130조"
+      ],
+      "priority": "baseline",
+      "source": "daewon_api_target_baseline"
+    },
+    {
+      "law_name": "최저임금법",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제5조",
+        "제6조",
+        "제6조의2"
+      ],
+      "priority": "baseline",
+      "source": "daewon_api_target_baseline"
+    },
+    {
+      "law_name": "근로자퇴직급여 보장법",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제4조",
+        "제8조",
+        "제9조"
+      ],
+      "priority": "baseline",
+      "source": "daewon_api_target_baseline"
+    },
+    {
+      "law_name": "기간제 및 단시간근로자 보호 등에 관한 법률",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제8조"
+      ],
+      "priority": "baseline",
+      "source": "daewon_api_target_baseline"
+    },
+    {
+      "law_name": "파견근로자 보호 등에 관한 법률",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제21조"
+      ],
+      "priority": "baseline",
+      "source": "daewon_api_target_baseline"
+    },
+    {
+      "law_name": "고용상 연령차별금지 및 고령자고용촉진에 관한 법률",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제4조의4",
+        "제19조"
+      ],
+      "priority": "baseline",
+      "source": "daewon_baseline_수동추가"
+    },
+    {
+      "law_name": "장애인고용촉진 및 직업재활법",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제5조의2"
+      ],
+      "priority": "baseline",
+      "source": "daewon_baseline_수동추가"
+    },
+    {
+      "law_name": "채용절차의 공정화에 관한 법률",
+      "effective_date": "20260101",
+      "promulgation_date": "",
+      "amendment_type": "offline_baseline",
+      "law_mst": "",
+      "changed_articles": [
+        "제4조의3"
+      ],
+      "priority": "baseline",
+      "source": "daewon_api_target_baseline"
+    }
+  ]
+}

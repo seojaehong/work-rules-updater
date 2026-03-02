@@ -22,6 +22,8 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
+.env.*
+!.env.example
 
 # Company data (confidential)
 data/company_rules/
@@ -29,6 +31,12 @@ data/law_cache/
 
 # Output (generated files, not source code)
 /output/
+evals/results/smoke/latest.json
+output/
+temp/
+.tmp/
+.tmp_session/
+.pytest_cache/
 
 # Node.js (if docx generation uses JS)
 node_modules/

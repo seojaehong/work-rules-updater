@@ -1,0 +1,738 @@
+{
+  "version": "2026.03",
+  "description": "2026 표준취업규칙(일반용) 조문별 법령 매핑 - 리서치 초안. 검토 후 확정 필요.",
+  "source": "고용노동부 표준취업규칙 2026 배포판 (일반용)",
+  "match_rules": {
+    "normalize": true,
+    "longest_match_priority": true,
+    "min_similarity": 0.8
+  },
+  "_note": "⚠️ 파싱 파일(표준취업규칙_2026_파싱.json)에 일반용+단시간근로자용이 혼재. 아래는 일반용 기준 추정치. [VERIFY] 표시 항목은 원문 대조 필요.",
+  "chapters": {
+    "1": "총칙",
+    "2": "채용 및 근로계약",
+    "3": "복무",
+    "4": "인사",
+    "5": "근로시간, 휴게 및 휴일",
+    "6": "휴가",
+    "7": "모성보호 및 일가정양립",
+    "8": "임금",
+    "9": "퇴직, 해고 등",
+    "10": "퇴직급여",
+    "11": "표창 및 징계",
+    "12": "교육",
+    "13": "직장 내 괴롭힘 금지",
+    "14": "직장 내 성희롱 금지",
+    "15": "안전과 보건",
+    "16": "보칙"
+  },
+  "articles": {
+    "1": {
+      "title": "목적",
+      "chapter": 1,
+      "law": "근로기준법",
+      "articles": ["제93조"],
+      "required": true,
+      "aliases": ["목적"]
+    },
+    "2": {
+      "title": "적용범위",
+      "chapter": 1,
+      "law": "근로기준법",
+      "articles": ["제93조"],
+      "required": true,
+      "aliases": ["적용범위"]
+    },
+    "3": {
+      "title": "사원의 정의",
+      "chapter": 1,
+      "law": "기간제및단시간근로자보호법",
+      "articles": ["제2조"],
+      "required": true,
+      "aliases": ["사원의 정의", "근로자의 정의"]
+    },
+    "4": {
+      "title": "차별금지",
+      "chapter": 1,
+      "law": "근로기준법",
+      "articles": ["제6조"],
+      "related_laws": [
+        {"law": "남녀고용평등법", "articles": ["제7조", "제8조", "제9조", "제10조", "제11조"]},
+        {"law": "고용정책기본법", "articles": ["제7조"]},
+        {"law": "기간제및단시간근로자보호법", "articles": ["제8조"]},
+        {"law": "장애인차별금지법", "articles": []}
+      ],
+      "required": false,
+      "aliases": ["차별금지", "균등처우"]
+    },
+    "5": {
+      "title": "채용",
+      "chapter": 2,
+      "law": "채용절차의공정화에관한법률",
+      "articles": ["제4조의3"],
+      "required": false,
+      "aliases": ["채용"]
+    },
+    "6": {
+      "title": "근로계약",
+      "chapter": 2,
+      "law": "근로기준법",
+      "articles": ["제17조"],
+      "related_laws": [
+        {"law": "근로기준법시행령", "articles": ["제8조"]},
+        {"law": "기간제및단시간근로자보호법", "articles": ["제17조"]}
+      ],
+      "required": false,
+      "aliases": ["근로계약", "근로계약 체결"]
+    },
+    "7": {
+      "title": "수습기간",
+      "chapter": 2,
+      "law": "근로기준법",
+      "articles": ["제26조"],
+      "related_laws": [
+        {"law": "최저임금법", "articles": ["제5조"]},
+        {"law": "최저임금법시행령", "articles": ["제3조"]}
+      ],
+      "required": false,
+      "aliases": ["수습기간", "수습"]
+    },
+    "8": {
+      "title": "복무의무",
+      "chapter": 3,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["복무의무", "복무규율"]
+    },
+    "9": {
+      "title": "출근, 결근",
+      "chapter": 3,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["출근", "결근", "출근 결근"]
+    },
+    "10": {
+      "title": "지각, 조퇴 및 외출",
+      "chapter": 3,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["지각", "조퇴", "외출"]
+    },
+    "11": {
+      "title": "공민권행사 및 공의 직무 수행",
+      "chapter": 3,
+      "law": "근로기준법",
+      "articles": ["제10조"],
+      "required": false,
+      "aliases": ["공민권행사", "공의 직무"]
+    },
+    "12": {
+      "title": "출장",
+      "chapter": 3,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["출장"]
+    },
+    "13": {
+      "title": "인사위원회의 구성",
+      "chapter": 4,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["인사위원회 구성", "인사위원회"]
+    },
+    "14": {
+      "title": "위원회의 기능",
+      "chapter": 4,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["위원회 기능"]
+    },
+    "15": {
+      "title": "위원회의 소집 및 운영",
+      "chapter": 4,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["위원회 소집", "위원회 운영"]
+    },
+    "16": {
+      "title": "배치, 전직, 승진",
+      "chapter": 4,
+      "law": "근로기준법",
+      "articles": ["제23조제1항"],
+      "required": false,
+      "aliases": ["배치", "전직", "승진", "인사이동"]
+    },
+    "17": {
+      "title": "휴직사유 및 기간",
+      "chapter": 4,
+      "law": "남녀고용평등법",
+      "articles": ["제19조"],
+      "related_laws": [
+        {"law": "근로기준법", "articles": ["제74조"]}
+      ],
+      "required": true,
+      "aliases": ["휴직사유", "휴직기간", "휴직"]
+    },
+    "18": {
+      "title": "휴직명령",
+      "chapter": 4,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["휴직명령"]
+    },
+    "19": {
+      "title": "준수사항",
+      "chapter": 4,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["준수사항"]
+    },
+    "20": {
+      "title": "복직",
+      "chapter": 4,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["복직"]
+    },
+    "21": {
+      "title": "근속기간의 계산 등",
+      "chapter": 4,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["근속기간", "근속연수"]
+    },
+    "22": {
+      "title": "교대근로",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제93조제3호"],
+      "required": false,
+      "aliases": ["교대근로", "교대근무"]
+    },
+    "23": {
+      "title": "근로시간",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제50조", "제69조"],
+      "required": true,
+      "aliases": ["근로시간", "소정근로시간"]
+    },
+    "24": {
+      "title": "휴게",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제54조"],
+      "required": true,
+      "aliases": ["휴게", "휴게시간"]
+    },
+    "25": {
+      "title": "탄력적 근로시간제",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제51조", "제51조의2"],
+      "required": false,
+      "aliases": ["탄력적 근로시간제", "탄력근무"]
+    },
+    "26": {
+      "title": "선택적 근로시간제",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제52조"],
+      "required": false,
+      "aliases": ["선택적 근로시간제", "선택근무"],
+      "_note": "[VERIFY] 파싱 파일에서는 제26조='재량근로'로 나옴. 일반용 원문 확인 필요."
+    },
+    "27": {
+      "title": "재량근로",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제58조제3항"],
+      "required": false,
+      "aliases": ["재량근로", "재량근로시간제"],
+      "_note": "[VERIFY] 파싱에서 제27조='연장·야간 및 휴일근로'로도 나옴. 혼재 확인."
+    },
+    "28": {
+      "title": "사업장 밖 간주근로시간제",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제58조제1항", "제58조제2항"],
+      "required": false,
+      "aliases": ["사업장 밖 간주근로", "간주근로시간제"],
+      "_note": "[VERIFY] 파싱에서 제28조='재량근로'로 나옴. 단시간용과 혼재."
+    },
+    "29": {
+      "title": "연장, 야간 및 휴일근로",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제53조", "제56조", "제69조", "제70조"],
+      "required": true,
+      "aliases": ["연장·야간 및 휴일근로", "연장근로", "야간근로", "휴일근로"]
+    },
+    "30": {
+      "title": "야간 및 휴일근로의 제한",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제70조", "제74조제5항"],
+      "required": true,
+      "aliases": ["야간 및 휴일근로의 제한", "야간근로 제한"]
+    },
+    "31": {
+      "title": "유급휴일(주휴일)",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제55조"],
+      "required": true,
+      "aliases": ["주휴일", "유급휴일"],
+      "_note": "[VERIFY] 파싱에서 제31조='연차유급휴가'로 나옴 — 단시간용 혼재 가능."
+    },
+    "32": {
+      "title": "유급휴일(공휴일 등)",
+      "chapter": 5,
+      "law": "근로기준법",
+      "articles": ["제55조제2항"],
+      "related_laws": [
+        {"law": "관공서의공휴일에관한규정", "articles": []}
+      ],
+      "required": true,
+      "aliases": ["공휴일", "관공서 공휴일"]
+    },
+    "33": {
+      "title": "연차유급휴가",
+      "chapter": 6,
+      "law": "근로기준법",
+      "articles": ["제60조"],
+      "required": true,
+      "aliases": ["연차유급휴가", "연차휴가", "연차"]
+    },
+    "34": {
+      "title": "연차유급휴가의 사용",
+      "chapter": 6,
+      "law": "근로기준법",
+      "articles": ["제60조제5항", "제60조제7항"],
+      "required": true,
+      "aliases": ["연차유급휴가의 사용", "연차 사용"]
+    },
+    "35": {
+      "title": "연차유급휴가의 사용촉진",
+      "chapter": 6,
+      "law": "근로기준법",
+      "articles": ["제61조"],
+      "required": false,
+      "aliases": ["연차유급휴가 사용촉진", "연차 사용촉진"]
+    },
+    "36": {
+      "title": "경조사 휴가",
+      "chapter": 6,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["경조사 휴가", "경조휴가"]
+    },
+    "37": {
+      "title": "배우자 출산휴가",
+      "chapter": 6,
+      "law": "남녀고용평등법",
+      "articles": ["제18조의2"],
+      "required": true,
+      "aliases": ["배우자 출산휴가"]
+    },
+    "38": {
+      "title": "난임치료휴가",
+      "chapter": 6,
+      "law": "남녀고용평등법",
+      "articles": ["제18조의3"],
+      "required": true,
+      "aliases": ["난임치료휴가"]
+    },
+    "39": {
+      "title": "가족돌봄휴가",
+      "chapter": 6,
+      "law": "남녀고용평등법",
+      "articles": ["제22조의2"],
+      "required": true,
+      "aliases": ["가족돌봄휴가", "가족돌봄"]
+    },
+    "40": {
+      "title": "임산부의 보호",
+      "chapter": 7,
+      "law": "근로기준법",
+      "articles": ["제74조", "제74조의2", "제75조"],
+      "required": true,
+      "aliases": ["임산부의 보호", "모성보호", "출산전후휴가"]
+    },
+    "41": {
+      "title": "육아휴직",
+      "chapter": 7,
+      "law": "남녀고용평등법",
+      "articles": ["제19조"],
+      "required": true,
+      "aliases": ["육아휴직"]
+    },
+    "42": {
+      "title": "육아기 근로시간 단축",
+      "chapter": 7,
+      "law": "남녀고용평등법",
+      "articles": ["제19조의2"],
+      "required": true,
+      "aliases": ["육아기 근로시간 단축"]
+    },
+    "43": {
+      "title": "육아기 근로시간 단축 중 근로조건 등",
+      "chapter": 7,
+      "law": "남녀고용평등법",
+      "articles": ["제19조의3", "제19조의4"],
+      "required": true,
+      "aliases": ["육아기 단축 근로조건"]
+    },
+    "44": {
+      "title": "가족돌봄 등을 위한 근로시간 단축",
+      "chapter": 7,
+      "law": "남녀고용평등법",
+      "articles": ["제22조의3", "제22조의4"],
+      "required": true,
+      "aliases": ["가족돌봄 근로시간 단축"]
+    },
+    "45": {
+      "title": "임금의 구성항목",
+      "chapter": 8,
+      "law": "근로기준법",
+      "articles": ["제93조제1호", "제43조"],
+      "required": true,
+      "aliases": ["임금의 구성항목", "임금 구성", "임금항목"]
+    },
+    "46": {
+      "title": "임금의 계산 및 지급방법",
+      "chapter": 8,
+      "law": "근로기준법",
+      "articles": ["제43조", "제43조의2", "제43조의3"],
+      "required": true,
+      "aliases": ["임금의 계산 및 지급방법", "임금 지급", "임금 계산"]
+    },
+    "47": {
+      "title": "상여금 지급",
+      "chapter": 8,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["상여금 지급", "상여금"]
+    },
+    "48": {
+      "title": "비상시 지급",
+      "chapter": 8,
+      "law": "근로기준법",
+      "articles": ["제45조"],
+      "required": true,
+      "aliases": ["비상시 지급", "비상시 임금"],
+      "_note": "[VERIFY] 파싱에서 제48조='가족돌봄 등을 위한 근로시간 단축'으로 나옴. 단시간용 혼재."
+    },
+    "49": {
+      "title": "퇴직 및 퇴직일",
+      "chapter": 9,
+      "law": "근로기준법",
+      "articles": ["제93조제4호"],
+      "required": true,
+      "aliases": ["퇴직 및 퇴직일", "퇴직", "퇴직사유"]
+    },
+    "50": {
+      "title": "정년",
+      "chapter": 9,
+      "law": "고용상연령차별금지및고령자고용촉진에관한법률",
+      "articles": ["제19조"],
+      "required": true,
+      "aliases": ["정년", "정년퇴직"]
+    },
+    "51": {
+      "title": "해고의 통지",
+      "chapter": 9,
+      "law": "근로기준법",
+      "articles": ["제26조", "제27조"],
+      "required": true,
+      "aliases": ["해고의 통지", "해고 통지", "해고예고"]
+    },
+    "52": {
+      "title": "해고의 제한",
+      "chapter": 9,
+      "law": "근로기준법",
+      "articles": ["제23조", "제24조", "제30조"],
+      "required": true,
+      "aliases": ["해고의 제한", "해고 제한", "부당해고"]
+    },
+    "53": {
+      "title": "퇴직급여제도의 설정",
+      "chapter": 10,
+      "law": "근로자퇴직급여보장법",
+      "articles": ["제4조", "제8조", "제9조"],
+      "required": true,
+      "aliases": ["퇴직급여제도", "퇴직급여", "퇴직금"]
+    },
+    "54": {
+      "title": "퇴직금 중간정산(중도인출)",
+      "chapter": 10,
+      "law": "근로자퇴직급여보장법",
+      "articles": ["제8조제2항"],
+      "required": false,
+      "aliases": ["퇴직금 중간정산", "중도인출"]
+    },
+    "55": {
+      "title": "표창",
+      "chapter": 11,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["표창", "포상"]
+    },
+    "56": {
+      "title": "징계",
+      "chapter": 11,
+      "law": "근로기준법",
+      "articles": ["제93조제11호"],
+      "required": true,
+      "aliases": ["징계", "징계사유"]
+    },
+    "57": {
+      "title": "징계의 종류",
+      "chapter": 11,
+      "law": "근로기준법",
+      "articles": ["제93조제11호"],
+      "required": true,
+      "aliases": ["징계의 종류", "징계 종류"]
+    },
+    "58": {
+      "title": "징계심의",
+      "chapter": 11,
+      "law": "근로기준법",
+      "articles": ["제23조", "제27조"],
+      "required": true,
+      "aliases": ["징계심의", "징계위원회"]
+    },
+    "59": {
+      "title": "재심절차",
+      "chapter": 11,
+      "law": "근로기준법",
+      "articles": ["제28조"],
+      "required": false,
+      "aliases": ["재심절차", "재심"]
+    },
+    "60": {
+      "title": "직무교육",
+      "chapter": 12,
+      "law": null,
+      "articles": [],
+      "required": false,
+      "aliases": ["직무교육", "교육"]
+    },
+    "61": {
+      "title": "성희롱 예방교육",
+      "chapter": 12,
+      "law": "남녀고용평등법",
+      "articles": ["제13조"],
+      "required": true,
+      "aliases": ["성희롱 예방교육"]
+    },
+    "62": {
+      "title": "직장 내 괴롭힘 예방교육",
+      "chapter": 12,
+      "law": "근로기준법",
+      "articles": ["제76조의2"],
+      "required": true,
+      "aliases": ["직장 내 괴롭힘 예방교육", "괴롭힘 교육"]
+    },
+    "63": {
+      "title": "장애인 인식개선 교육",
+      "chapter": 12,
+      "law": "장애인고용촉진및직업재활법",
+      "articles": ["제5조의2"],
+      "required": true,
+      "aliases": ["장애인 인식개선 교육"]
+    },
+    "64": {
+      "title": "개인정보보호교육",
+      "chapter": 12,
+      "law": "개인정보보호법",
+      "articles": ["제28조"],
+      "required": true,
+      "aliases": ["개인정보보호교육", "개인정보 교육"]
+    },
+    "65": {
+      "title": "직장 내 괴롭힘 행위의 금지",
+      "chapter": 13,
+      "law": "근로기준법",
+      "articles": ["제76조의2"],
+      "required": true,
+      "aliases": ["직장 내 괴롭힘 금지", "괴롭힘 금지"]
+    },
+    "66": {
+      "title": "금지되는 직장 내 괴롭힘 행위",
+      "chapter": 13,
+      "law": "근로기준법",
+      "articles": ["제76조의2"],
+      "required": true,
+      "aliases": ["금지되는 괴롭힘 행위"]
+    },
+    "67": {
+      "title": "직장 내 괴롭힘 예방교육",
+      "chapter": 13,
+      "law": "근로기준법",
+      "articles": ["제76조의2"],
+      "required": true,
+      "aliases": ["괴롭힘 예방교육(제13장)"],
+      "_note": "제62조(교육장)와 중복될 수 있음. 제13장은 괴롭힘 전담 규정."
+    },
+    "68": {
+      "title": "사건의 접수",
+      "chapter": 13,
+      "law": "근로기준법",
+      "articles": ["제76조의3제1항"],
+      "required": true,
+      "aliases": ["사건의 접수", "괴롭힘 신고"]
+    },
+    "69": {
+      "title": "사건의 조사",
+      "chapter": 13,
+      "law": "근로기준법",
+      "articles": ["제76조의3제2항"],
+      "required": true,
+      "aliases": ["사건의 조사", "괴롭힘 조사"]
+    },
+    "70": {
+      "title": "피해사원등의 보호",
+      "chapter": 13,
+      "law": "근로기준법",
+      "articles": ["제76조의3제3항", "제76조의3제4항", "제76조의3제5항", "제76조의3제6항"],
+      "required": true,
+      "aliases": ["피해사원 보호", "피해자 보호"]
+    },
+    "71": {
+      "title": "직장 내 괴롭힘 사실의 확인 및 조치",
+      "chapter": 13,
+      "law": "근로기준법",
+      "articles": ["제76조의3제4항", "제76조의3제5항", "제76조의3제6항", "제76조의3제7항"],
+      "required": true,
+      "aliases": ["괴롭힘 확인 및 조치"]
+    },
+    "72": {
+      "title": "재발방지조치 등",
+      "chapter": 13,
+      "law": "근로기준법",
+      "articles": ["제76조의3"],
+      "required": true,
+      "aliases": ["재발방지조치", "재발 방지"]
+    },
+    "73": {
+      "title": "직장 내 성희롱 예방지침",
+      "chapter": 14,
+      "law": "남녀고용평등법",
+      "articles": ["제12조", "제13조", "제13조의2"],
+      "required": true,
+      "aliases": ["성희롱 예방지침"]
+    },
+    "74": {
+      "title": "직장 내 성희롱 발생 시 조치",
+      "chapter": 14,
+      "law": "남녀고용평등법",
+      "articles": ["제14조"],
+      "required": true,
+      "aliases": ["성희롱 발생 시 조치"]
+    },
+    "75": {
+      "title": "고객 등에 의한 성희롱 방지",
+      "chapter": 14,
+      "law": "남녀고용평등법",
+      "articles": ["제14조의2"],
+      "required": true,
+      "aliases": ["고객 성희롱 방지"]
+    },
+    "76": {
+      "title": "고객의 폭언 등에 대한 조치",
+      "chapter": 14,
+      "law": "산업안전보건법",
+      "articles": ["제41조"],
+      "required": true,
+      "aliases": ["고객 폭언 조치", "감정노동자 보호"]
+    },
+    "77": {
+      "title": "안전보건관리규정",
+      "chapter": 15,
+      "law": "산업안전보건법",
+      "articles": ["제25조", "제26조"],
+      "required": true,
+      "aliases": ["안전보건관리규정"]
+    },
+    "78": {
+      "title": "안전보건교육",
+      "chapter": 15,
+      "law": "산업안전보건법",
+      "articles": ["제29조"],
+      "required": true,
+      "aliases": ["안전보건교육", "안전교육"]
+    },
+    "79": {
+      "title": "물질안전보건자료의 게시, 교육 및 경고표시",
+      "chapter": 15,
+      "law": "산업안전보건법",
+      "articles": ["제114조", "제115조"],
+      "required": true,
+      "aliases": ["물질안전보건자료", "MSDS"]
+    },
+    "80": {
+      "title": "작업환경측정",
+      "chapter": 15,
+      "law": "산업안전보건법",
+      "articles": ["제125조"],
+      "required": true,
+      "aliases": ["작업환경측정"]
+    },
+    "81": {
+      "title": "건강진단",
+      "chapter": 15,
+      "law": "산업안전보건법",
+      "articles": ["제129조", "제130조", "제131조", "제132조"],
+      "required": true,
+      "aliases": ["건강진단", "건강검진"]
+    },
+    "82": {
+      "title": "산업안전보건법 준수",
+      "chapter": 15,
+      "law": "산업안전보건법",
+      "articles": ["제5조"],
+      "required": true,
+      "aliases": ["산업안전보건법 준수", "안전보건 준수"]
+    },
+    "83": {
+      "title": "취업규칙의 변경",
+      "chapter": 16,
+      "law": "근로기준법",
+      "articles": ["제94조"],
+      "required": true,
+      "aliases": ["취업규칙 변경", "규칙 변경"]
+    },
+    "84": {
+      "title": "취업규칙의 비치",
+      "chapter": 16,
+      "law": "근로기준법",
+      "articles": ["제14조"],
+      "required": true,
+      "aliases": ["취업규칙 비치", "규칙 비치", "취업규칙 게시"]
+    }
+  },
+  "_verify_items": [
+    "제26조: 리서치='선택적 근로시간제' vs 파싱='재량근로'. 일반용 원문 대조 필요.",
+    "제27조: 리서치='재량근로' vs 파싱='연장·야간 및 휴일근로'. 단시간용 혼재 의심.",
+    "제28조: 리서치='사업장 밖 간주근로' vs 파싱='재량근로'. 일반용에 이 조문 없을 수 있음.",
+    "제31조: 리서치='유급휴일(주휴일)' vs 파싱='연차유급휴가'. 단시간용 혼재 의심.",
+    "제48조: 리서치='비상시 지급' vs 파싱='가족돌봄 등을 위한 근로시간 단축'. 일반용 확인.",
+    "제50조: 리서치='정년' vs 파싱='가족돌봄 등을 위한 근로시간 단축'. 장번호 밀림 의심.",
+    "전체적으로 파싱 JSON의 일반용/단시간용 분리가 안 되어있어 조문번호 불일치 다수. HWP 원문 직접 대조 권장."
+  ]
+}
