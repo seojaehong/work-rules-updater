@@ -112,7 +112,11 @@ class HwpxComparisonWriter:
         text_nodes = self._find_text_nodes(root)
 
         if text_nodes:
-            targets = text_nodes if replace_all else [text_nodes[0]]
+            # 첫 번째 노드에 전체 텍스트, 나머지는 비워서 반복 방지
+            text_nodes[0].text = text
+            if replace_all:
+                for node in text_nodes[1:]:
+                    node.text = ""
         else:
             run_node = self._find_first_run_node(root)
             if run_node is None:
@@ -131,10 +135,7 @@ class HwpxComparisonWriter:
 
             inserted = et.Element(text_tag)
             run_node.append(inserted)
-            targets = [inserted]
-
-        for node in targets:
-            node.text = text
+            inserted.text = text
 
         return et.tostring(root, encoding="utf-8", xml_declaration=True)
 
