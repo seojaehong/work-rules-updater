@@ -443,6 +443,7 @@ def generate_table(rules_file, output, since, company_name, hwpx_template, amend
         output_dir=output,
         company_name=company_name,
         hwpx_template=template_path,
+        drafts=drafts,
     )
 
     files = result.get("files", {})

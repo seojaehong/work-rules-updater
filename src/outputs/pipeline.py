@@ -24,11 +24,15 @@ class OutputPipeline:
         output_dir: str,
         company_name: str = "",
         hwpx_template: Optional[str] = None,
+        drafts: Optional[list[dict]] = None,
     ) -> dict:
         path = Path(output_dir)
         path.mkdir(parents=True, exist_ok=True)
 
-        changes = self._build_changes(matches)
+        if drafts:
+            changes = self._build_changes_from_drafts(drafts)
+        else:
+            changes = self._build_changes(matches)
         created: dict[str, str] = {}
 
         created["json"] = self.json_writer.write(matches, str(path / "match_results.json"))
@@ -50,6 +54,28 @@ class OutputPipeline:
                 created["hwpx_error"] = str(exc)
 
         return {"changes": changes, "files": created}
+
+    @staticmethod
+    def _build_changes_from_drafts(drafts: list[dict]) -> list[dict]:
+        """draft_revisions 기반으로 조문별 1행 changes 생성."""
+        changes = []
+        for draft in drafts:
+            article_number = draft.get("rule_article", "")
+            old_text = draft.get("current_text", "")
+            suggested = draft.get("suggested_text", "")
+            review_points = draft.get("review_points", [])
+
+            reason = "\n".join(review_points) if review_points else ""
+
+            changes.append(
+                {
+                    "article_number": article_number,
+                    "old_text": old_text,
+                    "new_text": suggested,
+                    "reason": reason,
+                }
+            )
+        return changes
 
     @staticmethod
     def _build_changes(matches: list[dict]) -> list[dict]:
