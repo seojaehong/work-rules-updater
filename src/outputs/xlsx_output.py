@@ -62,7 +62,7 @@ class XlsxComparisonWriter:
         worksheet.column_dimensions["A"].width = 12
         worksheet.column_dimensions["B"].width = 45
         worksheet.column_dimensions["C"].width = 45
-        worksheet.column_dimensions["D"].width = 25
+        worksheet.column_dimensions["D"].width = 40
 
         for change in changes:
             row += 1
