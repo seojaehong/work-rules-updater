@@ -744,8 +744,71 @@ class RulesMatcher:
         char_ratio = self._similarity(left_norm, right_norm)
         token_ratio = self._jaccard(self._tokenize(left_raw), self._tokenize(right_raw))
         ngram_ratio = self._jaccard(self._char_ngrams(left_norm), self._char_ngrams(right_norm))
+        clause_ratio = self._clause_similarity(left_raw, right_raw)
+        containment_ratio = self._containment_similarity(left_norm, right_norm)
 
-        return (0.5 * char_ratio) + (0.25 * token_ratio) + (0.25 * ngram_ratio)
+        base_score = (
+            (0.4 * char_ratio)
+            + (0.2 * token_ratio)
+            + (0.2 * ngram_ratio)
+            + (0.2 * clause_ratio)
+        )
+        return max(base_score, containment_ratio)
+
+    def _clause_similarity(self, left_raw: str, right_raw: str) -> float:
+        left_units = self._extract_clause_units(left_raw)
+        right_units = self._extract_clause_units(right_raw)
+        if not left_units or not right_units:
+            return 0.0
+
+        pair_best = max(self._similarity(lu, ru) for lu in left_units for ru in right_units)
+        set_overlap = self._jaccard(set(left_units), set(right_units))
+        return (0.7 * pair_best) + (0.3 * set_overlap)
+
+    def _extract_clause_units(self, text: str) -> list[str]:
+        normalized = self._normalize_title_key(text)
+        if not normalized:
+            return []
+
+        split_base = normalized
+        for marker in ("에관한", "에대한", "및", "또는", "등", "중", "대한"):
+            split_base = split_base.replace(marker, " ")
+        split_base = split_base.replace("와", " ")
+        split_base = split_base.replace("과", " ")
+        split_base = re.sub(r"\s+", " ", split_base).strip()
+
+        units: list[str] = [normalized]
+        for token in split_base.split(" "):
+            if len(token) < 2:
+                continue
+            units.append(token)
+
+        deduped: list[str] = []
+        seen: set[str] = set()
+        for unit in units:
+            if unit in seen:
+                continue
+            seen.add(unit)
+            deduped.append(unit)
+        return deduped
+
+    @staticmethod
+    def _containment_similarity(left_norm: str, right_norm: str) -> float:
+        if not left_norm or not right_norm:
+            return 0.0
+
+        shorter, longer = (left_norm, right_norm)
+        if len(left_norm) > len(right_norm):
+            shorter, longer = right_norm, left_norm
+
+        # 짧은 키 오탐 방지: 4자 미만 단어는 포함(boost) 규칙 미적용
+        if len(shorter) < 4:
+            return 0.0
+        if shorter not in longer:
+            return 0.0
+
+        coverage = len(shorter) / len(longer)
+        return 0.78 + (0.22 * coverage)
 
     def _tokenize(self, text: str) -> set[str]:
         clean = re.sub(r"[^0-9a-zA-Z가-힣\s]", " ", (text or "").lower())
